@@ -1,46 +1,41 @@
 const sections = document.querySelectorAll(".category");
-const navLinks = document.querySelectorAll(".menu-itemA");
+const navLinks = document.querySelectorAll(".menuItemA");
 
-// navLinks.forEach(link => {
-//   link.addEventListener("click", handleClick);
-// });
+navLinks.forEach(link => {
+  link.addEventListener("click", handleClick);
+});
 
-// window.addEventListener('load', e => {
-//   e.preventDefault()
-//   if (document.location.hash) {
-//     const navLink = document.querySelector(`.menu-itemA[href='${document.location.hash}']`);
-//     navLink.classList.add('active')
-//   }
+window.addEventListener('load', e => {
+  if (document.querySelector('.active')) {
+    return
+  }
 
-//   const navLink = document.querySelector(`.menu-itemA`);
-//   navLink.classList.add('active')
-// })
+  const navLink = navLinks[0];
+  navLink.parentElement.classList.add('active')
+})
 
-// function handleClick(e) {
-//   e.preventDefault();
-//   const id = e.target.getAttribute("href").slice(1);
-//   const section = document.getElementById(id);
-//   section.scrollIntoView({ behavior: "smooth", block: 'start' });
+async function handleClick(e) {
+  e.preventDefault();
+  const id = e.target.dataset.href;
+  const section = document.getElementById(id);
+  scrollTo({
+    top: section.offsetTop,
+    behavior: 'smooth'
+  })
+}
 
-//   navLinks.forEach(link => {
-//     link.classList.remove("active");
-//   });
-//   e.target.classList.add("active");
-// }
-
-window.addEventListener("scroll", function (e) {
+window.addEventListener("scroll", () => {
   const fromTop = window.scrollY;
   sections.forEach(section => {
-    console.log('scrollY ' + fromTop, 'offset' + section.offsetTop);
     if (
       section.offsetTop <= fromTop &&
       section.offsetTop + section.offsetHeight > fromTop
     ) {
       navLinks.forEach(link => {
-        link.classList.remove("active");
-        if (section.getAttribute("id") === link.getAttribute("href").slice(1)) {
-          link.classList.add("active");
-          link.scrollIntoView({ block: 'start', behavior: 'auto' })
+        link.parentElement.classList.remove("active");
+        if (section.getAttribute("id") === link.dataset.href) {
+          link.parentElement.classList.add("active");
+          link.parentElement.scrollIntoView({ behavior: 'auto', block: 'start' })
         }
       });
     }

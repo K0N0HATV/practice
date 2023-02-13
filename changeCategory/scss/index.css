@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-.container {
-  overflow-x: scroll;
-}
-
 .menu {
   display: flex;
   overflow-x: scroll;
@@ -18,13 +14,21 @@
   right: 0;
   background-color: aqua;
 }
-.menu-item {
+.menuItem {
   display: inline-block;
   padding: 10px;
 }
-.menu-itemA {
+.menuItemA {
   text-decoration: none;
   color: black;
+}
+
+.cr-wte {
+  color: white;
+}
+
+.bg-bck {
+  background-color: black;
 }
 
 .active {
@@ -46,6 +50,12 @@
   justify-content: center;
   margin-top: 20px;
   align-items: center;
+  margin-bottom: 20px;
+}
+@media screen and (min-width: 940px) {
+  .category .imgList {
+    margin-bottom: 140px;
+  }
 }
 .category .itemImg {
   max-width: 120px;
