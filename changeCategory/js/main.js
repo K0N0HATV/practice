@@ -28,14 +28,14 @@ window.addEventListener("scroll", () => {
   const fromTop = window.scrollY;
   sections.forEach(section => {
     if (
-      section.offsetTop <= fromTop &&
+      section.offsetTop - .5 <= fromTop &&
       section.offsetTop + section.offsetHeight > fromTop
     ) {
       navLinks.forEach(link => {
         link.parentElement.classList.remove("active");
         if (section.getAttribute("id") === link.dataset.href) {
           link.parentElement.classList.add("active");
-          link.parentElement.scrollIntoView({ behavior: 'auto', block: 'start' })
+          link.parentElement.scrollIntoView({ behavior: 'auto', inline: 'center' })
         }
       });
     }
