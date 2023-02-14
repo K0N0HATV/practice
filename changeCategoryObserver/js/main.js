@@ -24,22 +24,27 @@ function handleClick(e) {
   })
 }
 
-window.addEventListener("scroll", () => {
-  const fromTop = window.scrollY;
-  sections.forEach(section => {
-    if (
-      section.offsetTop - .5 <= fromTop &&
-      section.offsetTop + section.offsetHeight > fromTop
-    ) {
-      console.log('offset ' + section.offsetTop);
-      console.log('scrollY ' + fromTop);
+const options = {
+  threshold: [0, .3, 1],
+}
+
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    console.log(entry);
+    if (entry.isIntersecting && entry.intersectionRatio > .3) {
+      const id = entry.target.getAttribute("id");
       navLinks.forEach(link => {
-        link.parentElement.classList.remove("active");
-        if (section.getAttribute("id") === link.dataset.href) {
+        if (link.dataset.href === id) {
           link.parentElement.classList.add("active");
           link.parentElement.scrollIntoView({ behavior: 'auto', inline: 'center' })
+        } else {
+          link.parentElement.classList.remove("active");
         }
       });
     }
   });
+}, options);
+
+sections.forEach(section => {
+  observer.observe(section);
 });
