@@ -24,13 +24,12 @@ function handleClick(e) {
   })
 }
 
-const options = {
+const optionsObserver = {
   threshold: [0, .3, 1],
 }
 
 const observer = new IntersectionObserver((entries, observer) => {
   entries.forEach(entry => {
-    console.log(entry);
     if (entry.isIntersecting && entry.intersectionRatio > .3) {
       const id = entry.target.getAttribute("id");
       navLinks.forEach(link => {
@@ -43,7 +42,7 @@ const observer = new IntersectionObserver((entries, observer) => {
       });
     }
   });
-}, options);
+}, optionsObserver);
 
 sections.forEach(section => {
   observer.observe(section);
